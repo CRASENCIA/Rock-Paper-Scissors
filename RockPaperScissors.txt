@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rock Paper Scissors - With Love 💖</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, #ffe0f0, #e0f7ff);
+    }
+    h1 {
+      color: #ff3399;
+      font-size: 2.5em;
+    }
+    button {
+      margin: 10px;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border-radius: 15px;
+      border: none;
+      background-color: #ffb6c1;
+      color: white;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px #aaa;
+      transition: all 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ff69b4;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 1.3em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎀 Rock Paper Scissors 🎀</h1>
+  <div id="app"></div>
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    function App() {
+      const [userChoice, setUserChoice] = React.useState("");
+      const [computerChoice, setComputerChoice] = React.useState("");
+      const [result, setResult] = React.useState("");
+
+      const choices = ["Rock ✊", "Paper ✋", "Scissors✌️"];
+
+      const playGame = (choice) => {
+        setUserChoice(choice);
+        const compChoice = choices[Math.floor(Math.random() * 3)];
+        setComputerChoice(compChoice);
+
+        const user = choice.split(" ")[0].toLowerCase();
+        const comp = compChoice.split(" ")[0].toLowerCase();
+
+        if (user === comp) {
+          setResult("It's a tie! 😶");
+        } else if (
+          (user === "rock" && comp === "scissors") ||
+          (user === "scissors" && comp === "paper") ||
+          (user === "paper" && comp === "rock")
+        ) {
+          setResult("You win! 💖👑");
+        } else {
+          setResult("You lose! 😭💔");
+        }
+      };
+
+      return (
+        <div>
+          {choices.map((choice, index) => (
+            <button key={index} onClick={() => playGame(choice)}>
+              {choice}
+            </button>
+          ))}
+          <div className="result">
+            <p><strong>You:</strong> {userChoice}</p>
+            <p><strong>Computer:</strong> {computerChoice}</p>
+            <h3>{result}</h3>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById("app"));
+  </script>
+</body>
+</html>
